@@ -29,8 +29,17 @@ citecolor=green,urlcolor=red]{hyperref}
 \usepackage{listings}
 \lstset { %
 	language=C++,
-	backgroundcolor=\color{black!5}, % set backgroundcolor
-	basicstyle=\footnotesize,% basic font setting
+	backgroundcolor=\color{blue!5}, % set backgroundcolor
+	basicstyle=\footnotesize\color{black},% basic font settingbasicstyle=\ttfamily\color{black}
+	keywordstyle=\color{red},
+	commentstyle=\color{violet},
+	stringstyle=\color{blue},
+	xleftmargin=2em,
+	frame=single,
+	framexleftmargin=2em,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=8pt,
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand\thesubsection{\thesection\Alph{subsection}}
@@ -171,9 +180,9 @@ For the purpose of discretization of the boder in this example, 3-node line elem
   We want to compute the integral at Eq. (\ref{eq7}) over the element $T$
 \begin{equation}\label{eq13}
 	\begin{aligned}[b]
-		\int_{\Omega_{T}} (\frac{\partial N}{\partial x_{1}}
-		\frac{\partial N}{\partial x_{1}}+\frac{\partial N}{\partial x_{2}} 
-		\frac{\partial N}{\partial x_{2}})U dA = \int_{\Omega_{T}} Nf dA + \int_{\partial \Omega} Ng dS
+		\int_{\Omega_{T}} (\frac{\partial N_I}{\partial x_{1}}
+		\frac{\partial N_J}{\partial x_{1}}+\frac{\partial N_I}{\partial x_{2}} 
+		\frac{\partial N_J}{\partial x_{2}})U dA = \int_{\Omega_{T}} N_J f dA + \int_{\partial \Omega} N^{border}_J g dS
 	\end{aligned}
 \end{equation}
 by the linear mapping between $(\xi,\eta)$ and $(x_{1},x_2)$, we can define $\frac{\partial N}{\partial x_{1}}$ and $\frac{\partial N}{\partial x_{2}}$
@@ -280,6 +289,7 @@ At the border we use $2$ points integration as it shown in Fig. \ref{fig:ifig2}.
 
 \section{Implementation} \label{sec: imp}
 In this section, we present implementation of our solution in the Hiperlife.
+\nolinenumbers
 \subsubsection{Headers} \label{sec: hdr}
 \begin{lstlisting}
 #include <iostream>
@@ -528,4 +538,12 @@ void RHS_Border(hiperlife::FillStructure& fillStr)
 }
 \end{lstlisting}
 \section{Results} \label{sec: rst}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Figures/result.png}
+	\caption{Solution.}
+	\label{fig_rst}
+\end{figure}
+\pagebreak
+\section*{Appendix} \label{sec: apx}
 \end{document}
